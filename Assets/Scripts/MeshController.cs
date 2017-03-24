@@ -117,6 +117,6 @@ public class MeshController : MonoBehaviour {
 
 		mesh.RecalculateNormals();
 		mesh.RecalculateBounds ();
-		mesh.Optimize();
+		;
 	}
 }
