@@ -3,8 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	public static string data_location = "/home/luca/Downloads/gangstar_miami/gameloft/games/Gangstar2";
-	public static string apk_location = "/home/luca/Downloads/gangstar_miami/6_gangstar_miami_vindication.apk";
+	public static string data_location = "/home/luca/Downloads/gangstar_miami/android/gameloft/games/Gangstar2";
+	public static string apk_location = "/home/luca/Downloads/gangstar_miami/android/6_gangstar_miami_vindication.apk";
 
 	public string soundname;
 
@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		if (soundname != "") {
-			AudioClip myAudioClip = new WWW ("file://" + data_location + "/" + soundname).audioClip;				
+			AudioClip myAudioClip = new WWW ("file://" + data_location + "/" + soundname).GetAudioClip();
 			audiosource = GetComponent<AudioSource> ();
 			StartCoroutine(loadFile());
 		}
@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
 	
 	IEnumerator loadFile() {
 		WWW www = new WWW ("file://" + data_location + "/" + soundname);
-		AudioClip myAudioClip = www.audioClip;
+		AudioClip myAudioClip = www.GetAudioClip();
 
 		while (!myAudioClip.isReadyToPlay)
 			yield return www;
