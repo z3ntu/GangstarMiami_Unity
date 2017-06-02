@@ -3,30 +3,32 @@ using UnityEngine.UI;
 using System.Collections;
 using System.IO;
 
-public class MainMenuController : MonoBehaviour {
+public class MainMenuController : MonoBehaviour
+{
+    public RawImage splashscreen;
 
-	public RawImage splashscreen;
+    // Use this for initialization
+    void Start()
+    {
+        LoadMainImage();
+    }
 
-	// Use this for initialization
-	void Start () {
-		LoadMainImage ();
-	}
+    void LoadMainImage()
+    {
+        // -- EXTRACTING --
 
-	void LoadMainImage() {
-		// -- EXTRACTING --
+        ZipUtil.Unzip(GameController.apk_location, Application.temporaryCachePath + "/apk_extracted");
+        string filename = Application.temporaryCachePath + "/apk_extracted/res/drawable/gi_background.png";
 
-		ZipUtil.Unzip (GameController.apk_location, Application.temporaryCachePath + "/apk_extracted");
-		string filename = Application.temporaryCachePath + "/apk_extracted/res/drawable/gi_background.png";
+        byte[] filedata = File.ReadAllBytes(filename);
+        Texture2D tex = new Texture2D(2, 2);
+        tex.LoadImage(filedata);
 
-		byte[] filedata = File.ReadAllBytes(filename);
-		Texture2D tex = new Texture2D(2, 2);
-		tex.LoadImage(filedata);
+        splashscreen.texture = tex;
+    }
 
-		splashscreen.texture = tex;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+    }
 }
