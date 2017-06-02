@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
 		WWW www = new WWW ("file://" + data_location + "/" + soundname);
 		AudioClip myAudioClip = www.GetAudioClip();
 
-		while (!myAudioClip.isReadyToPlay)
+		while (myAudioClip.loadState != AudioDataLoadState.Failed)
 			yield return www;
 
 		AudioClip clip = www.GetAudioClip(false);
