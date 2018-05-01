@@ -36,8 +36,8 @@ public class MeshController : MonoBehaviour
         //mesh.subMeshCount = 6;
 
         // -- EXTRACTING --
-        ZipUtil.Unzip(filename_packaged, Application.temporaryCachePath + "/test");
-        string filename = Application.temporaryCachePath + "/test/little_endian_quantized.bdae";
+        ZipUtil.Unzip(filename_packaged, Application.temporaryCachePath + "/test_" + modelname);
+        string filename = Application.temporaryCachePath + "/test_" + modelname + "/little_endian_quantized.bdae";
 
         var br = new BinaryReader(File.OpenRead(filename));
 
@@ -93,7 +93,7 @@ public class MeshController : MonoBehaviour
             float x = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
             float y = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
             float z = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
-            vertices[i] = new Vector3(x, y, z);
+            vertices[i] = new Vector3(x / 100, y / 100, z / 100);
 
             float xn = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
             float yn = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
@@ -102,7 +102,7 @@ public class MeshController : MonoBehaviour
 
             float xt = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
             float yt = ByteHelper.ReadFloat32(br, ByteHelper.ByteOrder.LittleEndian);
-            uvs[i] = new Vector2(xt, yt);
+            uvs[i] = new Vector2(xt, -yt);
 
             //Debug.Log (x + " - " + y + " - " + z);
         }
@@ -156,7 +156,7 @@ public class MeshController : MonoBehaviour
 
         File.WriteAllText("/tmp/meshcontroller/indices", indicesText);
 
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
+//        mesh.RecalculateNormals();
+//        mesh.RecalculateBounds();
     }
 }
