@@ -56,6 +56,7 @@ public class MapController : MonoBehaviour
 
             //Debug.Log (x + " - " + y + " - " + z);
         }
+
         Debug.Log("Position: " + br.BaseStream.Position);
         mesh.vertices = vertices;
         mesh.normals = normals;

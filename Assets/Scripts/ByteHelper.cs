@@ -106,6 +106,7 @@ public class ByteHelper
                 Debug.Log(reader.BaseStream.Position);
             }
         }
+
         return reader.BaseStream.Position - 6;
     }
 }

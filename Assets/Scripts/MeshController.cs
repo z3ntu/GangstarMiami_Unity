@@ -106,6 +106,7 @@ public class MeshController : MonoBehaviour
 
             //Debug.Log (x + " - " + y + " - " + z);
         }
+
         Debug.Log("Position: " + br.BaseStream.Position);
         mesh.vertices = vertices;
         mesh.normals = normals;
@@ -122,8 +123,40 @@ public class MeshController : MonoBehaviour
 
         mesh.triangles = indices;
 
+        Directory.CreateDirectory("/tmp/meshcontroller");
+        string verticesText = "";
+        foreach (Vector3 vertice in vertices)
+        {
+            verticesText += vertice.x + "," + vertice.y + "," + vertice.z + Environment.NewLine;
+        }
+
+        File.WriteAllText("/tmp/meshcontroller/vertices", verticesText);
+
+        string normalsText = "";
+        foreach (Vector3 normal in normals)
+        {
+            normalsText += normal.x + "," + normal.y + "," + normal.z + Environment.NewLine;
+        }
+
+        File.WriteAllText("/tmp/meshcontroller/normals", normalsText);
+
+        string uvsText = "";
+        foreach (Vector3 uv in uvs)
+        {
+            uvsText += uv.x + "," + uv.y + "," + uv.z + Environment.NewLine;
+        }
+
+        File.WriteAllText("/tmp/meshcontroller/uvs", uvsText);
+
+        string indicesText = "";
+        foreach (int indice in indices)
+        {
+            indicesText += indice + Environment.NewLine;
+        }
+
+        File.WriteAllText("/tmp/meshcontroller/indices", indicesText);
+
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
-        ;
     }
 }
